@@ -4,6 +4,8 @@
   "description": "ETM Candidacy Project. Calculate and Analyze report hours and details ",
   "main": "index.js",
   "dependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.6.0",
     "accepts": "^2.0.0",
     "acorn": "^8.16.0",
     "acorn-walk": "^8.3.5",
@@ -90,7 +92,6 @@
     "wrappy": "^1.0.2",
     "yn": "^3.1.1"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "ts-node src/index.tsx",
     "test": "echo \"Error: no test specified\" && exit 1"

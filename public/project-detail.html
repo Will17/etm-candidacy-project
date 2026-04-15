@@ -66,29 +66,29 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-header bg-info text-white">
-                                <h5 class="mb-0">Hours Breakdown</h5>
+                                <h5 class="mb-0">Dettaglio Ore Proprie/Derivate </h5>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="card border-primary">
                                             <div class="card-header bg-light">
-                                                <h6 class="mb-0">Proper Hours (Direct Reports)</h6>
+                                                <h6 class="mb-0">Ore Proprie (Report diretti)</h6>
                                             </div>
                                             <div class="card-body text-center">
                                                 <h4 class="text-primary" id="properHoursDisplay">-</h4>
-                                                <small class="text-muted">Hours from reports directly assigned to this project</small>
+                                                <small class="text-muted">Conteggio ore dai report direttamente assegnati a questo progetto</small>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="card border-success">
                                             <div class="card-header bg-light">
-                                                <h6 class="mb-0">Derived Hours (Sub-projects)</h6>
+                                                <h6 class="mb-0">Ore Derivate (Sottoprogetti)</h6>
                                             </div>
                                             <div class="card-body text-center">
                                                 <h4 class="text-success" id="derivedHoursDisplay">-</h4>
-                                                <small class="text-muted">Hours from this project and all sub-projects</small>
+                                                <small class="text-muted">Conteggio ore dai report derivati da questo progetto</small>
                                             </div>
                                         </div>
                                     </div>
@@ -152,12 +152,12 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Report ID</th>
-                                            <th>Date</th>
-                                            <th>Start Time</th>
-                                            <th>End Time</th>
-                                            <th>Duration (Hours)</th>
-                                            <th>Project ID</th>
+                                            <th>ID Report</th>
+                                            <th>Data</th>
+                                            <th>Ora Inizio</th>
+                                            <th>Ora Fine</th>
+                                            <th>Durata (Ore)</th>
+                                            <th>ID Progetto</th>
                                         </tr>
                                     </thead>
                                     <tbody id="reportsTableBody">
@@ -190,24 +190,24 @@
                             <!-- Controlli e Filtri -->
                             <div class="row mb-4">
                                 <div class="col-md-3">
-                                    <label for="monthFilter" class="form-label">Month</label>
+                                    <label for="monthFilter" class="form-label">Mese</label>
                                     <select class="form-select" id="monthFilter">
-                                        <option value="">All Months</option>
+                                        <option value="">Tutti i Mesi</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="startDate" class="form-label">Start Date</label>
+                                    <label for="startDate" class="form-label">Data Inizio</label>
                                     <input type="date" class="form-control" id="startDate">
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="endDate" class="form-label">End Date</label>
+                                    <label for="endDate" class="form-label">Data Fine</label>
                                     <input type="date" class="form-control" id="endDate">
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="projectScope" class="form-label">Project Scope</label>
+                                    <label for="projectScope" class="form-label">Scope di Progetto</label>
                                     <select class="form-select" id="projectScope">
-                                        <option value="single">This Task Only</option>
-                                        <option value="current">All Projects</option>
+                                        <option value="single">Solo questo progetto</option>
+                                        <option value="current">Tutti i progetti</option>
                                     </select>
                                 </div>
                             </div>
@@ -217,10 +217,10 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Employee Name</th>
-                                            <th>Average Hours</th>
-                                            <th>Total Hours</th>
-                                            <th>Report Count</th>
+                                            <th>Nome Collaboratore</th>
+                                            <th>Media Ore</th>
+                                            <th>Totale Ore</th>
+                                            <th>Numero Report</th>
                                         </tr>
                                     </thead>
                                     <tbody id="contributorsTableBody">
