@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dettagli Progetto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/dashboard.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <header class="bg-primary text-white p-3 mb-4">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h3 mb-0">Dettagli Progetto</h1>
+                        <p class="mb-0" id="projectNumber">Caricamento...</p>
+                    </div>
+                    <a href="index.html" class="btn btn-outline-light">
+                        <i class="bi bi-arrow-left"></i> Torna alla Dashboard
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <main class="container">
+            <!-- Caricamento -->
+            <div id="loadingIndicator" class="text-center py-5">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2">Loading project details...</p>
+            </div>
+
+            <!-- Alert di errore -->
+            <div id="errorAlert" class="alert alert-danger d-none" role="alert">
+                <strong>Error:</strong> <span id="errorMessage"></span>
+            </div>
+
+            <!-- Dettagli Progetto -->
+            <section id="projectDetailsSection" class="d-none">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">Informazioni Progetto</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><strong>Numero Progetto:</strong> <span id="detailProjectNumber"></span></p>
+                                        <p><strong>Descrizione:</strong> <span id="detailDescription"></span></p>
+                                        <p><strong>Ore Previste:</strong> <span id="detailExpectedHours"></span></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Data Inizio:</strong> <span id="detailStartDate"></span></p>
+                                        <p><strong>Data Fine:</strong> <span id="detailEndDate"></span></p>
+                                        <p><strong>Data Creazione:</strong> <span id="detailCreationDate"></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="mb-0">Hours Breakdown</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card border-primary">
+                                            <div class="card-header bg-light">
+                                                <h6 class="mb-0">Proper Hours (Direct Reports)</h6>
+                                            </div>
+                                            <div class="card-body text-center">
+                                                <h4 class="text-primary" id="properHoursDisplay">-</h4>
+                                                <small class="text-muted">Hours from reports directly assigned to this project</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card border-success">
+                                            <div class="card-header bg-light">
+                                                <h6 class="mb-0">Derived Hours (Sub-projects)</h6>
+                                            </div>
+                                            <div class="card-body text-center">
+                                                <h4 class="text-success" id="derivedHoursDisplay">-</h4>
+                                                <small class="text-muted">Hours from this project and all sub-projects</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0">Riepilogo Ore</h5>
+                            </div>
+                            <div class="card-body">
+                                <!-- Confronto ore -->
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span><strong>Ore Attese</strong></span>
+                                        <span id="expectedHoursDisplay">-</span>
+                                    </div>
+                                    <div class="progress mb-2" style="height: 25px;">
+                                        <div id="expectedProgressBar" class="progress-bar bg-info" role="progressbar" style="width: 0%">
+                                            <span id="expectedProgressText">0%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span><strong>Ore Effettive</strong></span>
+                                        <span id="actualHoursDisplay">-</span>
+                                    </div>
+                                    <div class="progress mb-2" style="height: 25px;">
+                                        <div id="actualProgressBar" class="progress-bar" role="progressbar" style="width: 0%">
+                                            <span id="actualProgressText">0%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="alert" id="hoursStatusAlert">
+                                    <h6 class="alert-heading">Stato</h6>
+                                    <p class="mb-0" id="hoursStatusText">Aggiornamento...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Report -->
+            <section id="reportsSection" class="mt-4 d-none">
+                <div class="card">
+                    <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Report Progetto</h5>
+                        <button class="btn btn-outline-light btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#reportsCollapse" aria-expanded="true" aria-controls="reportsCollapse">
+                            <i class="bi bi-chevron-up" id="reportsToggleIcon"></i>
+                        </button>
+                    </div>
+                    <div class="collapse show" id="reportsCollapse">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Report ID</th>
+                                            <th>Date</th>
+                                            <th>Start Time</th>
+                                            <th>End Time</th>
+                                            <th>Duration (Hours)</th>
+                                            <th>Project ID</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="reportsTableBody">
+                                        <!-- I report appariranno qui -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Nessun risultato -->
+                            <div id="noReportsState" class="text-center py-4 d-none">
+                                <i class="bi bi-file-earmark-x display-4 text-muted"></i>
+                                <h6 class="mt-2">Nessun Report Trovato</h6>
+                                <p class="text-muted">Questo progetto non ha report associati.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- Collaboratori -->
+            <section id="contributorsSection" class="mt-4 d-none">
+                <div class="card">
+                    <div class="card-header bg-warning text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Collaboratori</h5>
+                        <button class="btn btn-outline-light btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#contributorsCollapse" aria-expanded="true" aria-controls="contributorsCollapse">
+                            <i class="bi bi-chevron-up" id="contributorsToggleIcon"></i>
+                        </button>
+                    </div>
+                    <div class="collapse show" id="contributorsCollapse">
+                        <div class="card-body">
+                            <!-- Controlli e Filtri -->
+                            <div class="row mb-4">
+                                <div class="col-md-3">
+                                    <label for="monthFilter" class="form-label">Month</label>
+                                    <select class="form-select" id="monthFilter">
+                                        <option value="">All Months</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="startDate" class="form-label">Start Date</label>
+                                    <input type="date" class="form-control" id="startDate">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="endDate" class="form-label">End Date</label>
+                                    <input type="date" class="form-control" id="endDate">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="projectScope" class="form-label">Project Scope</label>
+                                    <select class="form-select" id="projectScope">
+                                        <option value="single">This Task Only</option>
+                                        <option value="current">All Projects</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Tabella Collaboratori -->
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Employee Name</th>
+                                            <th>Average Hours</th>
+                                            <th>Total Hours</th>
+                                            <th>Report Count</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="contributorsTableBody">
+                                        <!-- I Collaboratori verranno popolati qui -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Empty State -->
+                            <div id="noContributorsState" class="text-center py-4 d-none">
+                                <i class="bi bi-people display-4 text-muted"></i>
+                                <h6 class="mt-2">Nessun Collaboratore Trovato</h6>
+                                <p class="text-muted">Nessun collaboratore trovato in base ai filtri selezionati.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/project-detail.js"></script>
+</body>
+</html>
