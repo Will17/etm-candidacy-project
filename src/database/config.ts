@@ -1,3 +1,6 @@
+
+require('dotenv').config();
+
 const config = {
     /// For the sake of this exercise, we'll use 
     /// localhost and password in plain text.
@@ -5,9 +8,9 @@ const config = {
     /// in environment variables.
     db: {
         host: "localhost",
-        user: "root",
-        password: "password123",
-        database: "tecnical_call",
+        user: process.env.DB_LOCAL_USER || "",
+        password: process.env.DB_LOCAL_PASSWORD || "",
+        database: process.env.DB_LOCAL_DATABASE || ""
     },
     port: 3000,
     listPerPage: 100

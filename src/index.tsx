@@ -10,20 +10,20 @@ const port = config.port;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files from public directory
+// Uso una cartella pubblica per i file statici (frontend)
 app.use(express.static(path.join(__dirname, '../public')));
 
-// Define Node.JS Server Endpoints.
+// Endpoint per i progetti.
 app.use("/project", project);
 
-/* Error handler middleware */
+// Middleware per Error Handling (non usato)
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     const statusCode = err.statusCode || 500;
     res.status(statusCode).json({ message: err.message });
     return;
 });
 
-// Test call to / endpoint to check if server is running
+// Chiamata test per verificare se il servizio è up and running.
 app.get("/test", (req, res) => {
     res.send("Server works properly!");
 });
